@@ -63,9 +63,13 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.okHttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.okio)
     implementation(platform(libs.coroutines.bom))
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+    implementation(libs.arrow.core)
+    implementation(libs.android.maps)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

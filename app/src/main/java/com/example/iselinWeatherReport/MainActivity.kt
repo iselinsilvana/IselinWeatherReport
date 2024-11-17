@@ -1,6 +1,7 @@
 package com.example.iselinWeatherReport
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,11 +13,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.iselinWeatherReport.ui.theme.IselinWeatherReportTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        CoroutineScope(Dispatchers.IO + Job()).launch {
+            //val response = RetrofitInstance.locationForecastService.getHardcodedLocation(lat = 60.0f, lon = 11.0f)
+            val response = RetrofitInstance.locationForecastService.healthz()
+            Log.d("iselin", response.code().toString())
+        }
         setContent {
             IselinWeatherReportTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
