@@ -59,7 +59,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.compose.lifecycle.viewmodel)
 
+    implementation(libs.android.maps)
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.okHttp)
@@ -69,7 +72,7 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.arrow.core)
-    implementation(libs.android.maps)
+    implementation(libs.koin)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

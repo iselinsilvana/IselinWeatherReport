@@ -8,12 +8,14 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.11.00"
+android-maps = "3.8.2"
 retrofit = "2.11.0"
 okHttp = "4.12.0"
+okio = "3.6.0"
 coroutines = "1.9.0"
 arrow = "1.2.4"
-android-maps = "3.8.2"
-okio = "3.6.0"
+koin = "4.0.0"
+lifecycle = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +32,8 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityCompose" }
+compose-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 
 android-maps = {group = "com.google.maps.android", name = "android-maps-utils", version.ref = "android-maps" }
 
@@ -45,8 +49,11 @@ coroutines-bom = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-b
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android" }
 
-# arrow
+# arrow, error handling
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
+
+# koin, dependency injection
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

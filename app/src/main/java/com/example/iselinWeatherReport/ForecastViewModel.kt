@@ -1,5 +1,6 @@
 package com.example.iselinWeatherReport
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,9 @@ data class ViewState(
     val windSpeed: Float? = null
 )
 
-class ForecastViewModel() : ViewModel() {
+class ForecastViewModel(
+private val locationForecastService: LocationForecastService
+) : ViewModel() {
     private val _viewState = MutableStateFlow(ViewState())
     val viewState: StateFlow<ViewState>
         get() = _viewState.stateIn(
@@ -24,14 +27,16 @@ class ForecastViewModel() : ViewModel() {
             initialValue = ViewState()
         )
 
-    init {
+    init {Log.d("iselin", "inside view model init.")
+
         fetchCurrentWeather()
     }
 
     private fun fetchCurrentWeather() {
+        Log.d("iselin", "inside view model. is service ready? $locationForecastService")
         viewModelScope.launch {
-            val response = RetrofitInstance.locationForecastService.getHardcodedLocation(lat = 60.0f, lon = 11.0f)
-
+            val response = locationForecastService.getHardcodedLocation(lat = 60.0f, lon = 11.0f)
+            Log.d("iselin", response.code().toString())
         }
     }
 }
