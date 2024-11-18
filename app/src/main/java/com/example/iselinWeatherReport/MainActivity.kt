@@ -4,17 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.example.iselinWeatherReport.ui.theme.IselinWeatherReportTheme
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.iselinWeatherReport.ui.theme.IselinWeatherReportTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             IselinWeatherReportTheme {
                 val state: ViewState by viewModel.viewState.collectAsState()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier) { innerPadding ->
                     Greeting(
                         state = state,
                         modifier = Modifier.padding(innerPadding)
@@ -40,16 +41,34 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(state: ViewState, modifier: Modifier = Modifier) {
-    Text(
-        text = "Current temperature is ${state.temperature}",
-        modifier = modifier
-    )
+    Column(modifier = modifier.padding(16.dp)) {
+        Text(
+            text = "Current temperature is ${state.temperature}"
+        )
+        Text(
+            text = "Humidity is ${state.humidity}"
+        )
+        Text(
+            text = "Wind speed is ${state.windSpeed}"
+        )
+        Text(
+            text = "This is a ${state.weatherDescription}"
+        )
+    }
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     IselinWeatherReportTheme {
-        Greeting(state = ViewState(temperature = 20.0f))
+        Greeting(
+            state = ViewState(
+                temperature = 20.0f,
+                humidity = 98.0f,
+                windSpeed = 5.0f,
+                weatherDescription = SymbolCode.partlycloudy_day
+            )
+        )
     }
 }

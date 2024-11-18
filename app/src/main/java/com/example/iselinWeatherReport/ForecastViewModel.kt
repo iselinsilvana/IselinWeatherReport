@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 
 data class ViewState(
     val temperature: Float? = null,
-    val weatherDescription: String? = null,
     val humidity: Float? = null,
-    val windSpeed: Float? = null
+    val windSpeed: Float? = null,
+    val weatherDescription: SymbolCode? = null
 )
 
 class ForecastViewModel(
@@ -34,9 +34,16 @@ class ForecastViewModel(
     private fun fetchCurrentWeather() {
         viewModelScope.launch {
             val response = locationForecastService.getHardcodedLocation(lat = 60.0f, lon = 11.0f)
-            val temperature = response.body()?.properties?.timeSeries?.firstOrNull()?.data?.instant?.details
-                ?.airTemperature
-            _viewState.getAndUpdate { viewState -> viewState.copy(temperature = temperature) }
+            val details = response.body()?.properties?.timeSeries?.firstOrNull()?.data?.instant?.details
+            val weatherDescription = response.body()?.properties?.timeSeries?.firstOrNull()?.data?.next1Hour?.summary?.symbolCode
+            _viewState.getAndUpdate {
+                viewState -> viewState.copy(
+                    temperature = details?.airTemperature,
+                    humidity = details?.relativeHumidity,
+                    windSpeed = details?.windSpeed,
+                    weatherDescription = weatherDescription
+                )
+            }
         }
     }
 }

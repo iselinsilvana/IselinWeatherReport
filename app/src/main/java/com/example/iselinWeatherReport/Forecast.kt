@@ -42,7 +42,11 @@ data class ForecastUnits(
 data class TimeSeries(
     val instant: TimeInstant? = null,
     @SerializedName("next_12_hours")
-    val next12Hours: TimePeriod
+    val next12Hours: TimePeriod,
+    @SerializedName("next_1_hours")
+    val next1Hour: TimePeriod,
+    @SerializedName("next_6_hours")
+    val next6Hours: TimePeriod
 )
 
 data class TimeInstant(
