@@ -40,13 +40,18 @@ data class ForecastUnits(
 )
 
 data class TimeSeries(
-    val instant: ForecastTimeInstant? = null,
+    val instant: TimeInstant? = null,
     @SerializedName("next_12_hours")
     val next12Hours: TimePeriod
 )
 
-data class ForecastTimeInstant(
+data class TimeInstant(
     val details: Details
+)
+
+data class TimePeriod(
+    val details: ForecastTimePeriod? = null,
+    val summary: ForecastSummary
 )
 
 data class Details(
@@ -56,11 +61,6 @@ data class Details(
     val relativeHumidity: Float? = null,
     @SerializedName("wind_speed")
     val windSpeed: Float? = null
-)
-
-data class TimePeriod(
-    val details: ForecastTimePeriod? = null,
-    val summary: ForecastSummary
 )
 
 data class ForecastTimePeriod(
