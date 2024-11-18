@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -33,6 +34,9 @@ class ForecastViewModel(
     private fun fetchCurrentWeather() {
         viewModelScope.launch {
             val response = locationForecastService.getHardcodedLocation(lat = 60.0f, lon = 11.0f)
+            val temperature = response.body()?.properties?.timeSeries?.firstOrNull()?.data?.instant?.details
+                ?.airTemperature
+            _viewState.getAndUpdate { viewState -> viewState.copy(temperature = temperature) }
         }
     }
 }

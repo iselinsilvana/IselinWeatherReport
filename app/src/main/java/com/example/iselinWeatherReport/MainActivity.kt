@@ -10,9 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.iselinWeatherReport.ui.theme.IselinWeatherReportTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.tooling.preview.Preview
 
 class MainActivity : ComponentActivity() {
 
@@ -24,9 +26,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             IselinWeatherReportTheme {
+                val state: ViewState by viewModel.viewState.collectAsState()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        state = state,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -36,9 +39,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(state: ViewState, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "Current temperature is ${state.temperature}",
         modifier = modifier
     )
 }
@@ -47,6 +50,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     IselinWeatherReportTheme {
-        Greeting("Android")
+        Greeting(state = ViewState(temperature = 20.0f))
     }
 }
